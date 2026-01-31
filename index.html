@@ -15,42 +15,12 @@
 <canvas id="unity-canvas"></canvas>
 <div id="fps-graph" style="display:none"><canvas id="fps-canvas"></canvas></div>
   
-<script>
-  // ===== CHAOS SETUP =====
-  window.CHAOS = {
-    speed: 0.5 + Math.random() * 2,
-    jump: 0.6 + Math.random() * 1.6,
-    gravity: 0.6 + Math.random() * 1.4,
-    damage: 0.5 + Math.random() * 2,
-    hp: 0.5 + Math.random() * 2
-  };
 
-  alert("CHAOS MODE ENABLED 😈");
 
-  // Wait for Unity to define SendMessage
-  const waitForUnity = setInterval(() => {
-    if (typeof window.SendMessage === "function") {
-      clearInterval(waitForUnity);
-
-      const oldSendMessage = window.SendMessage;
-
-      window.SendMessage = function (obj, method, value) {
-        if (typeof value === "number") {
-          const m = method.toLowerCase();
-          if (m.includes("speed")) value *= CHAOS.speed;
-          if (m.includes("jump")) value *= CHAOS.jump;
-          if (m.includes("gravity")) value *= CHAOS.gravity;
-          if (m.includes("damage")) value *= CHAOS.damage;
-          if (m.includes("health")) value *= CHAOS.hp;
-        }
-        return oldSendMessage(obj, method, value);
-      };
-
-      console.log("CHAOS HOOKED INTO UNITY");
-    }
-  }, 100);
-</script>
 
 </body>
+  <script>
+alert("MOD LOADED");
+</script>
 </html>
 
