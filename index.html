@@ -16,7 +16,7 @@
 <div id="fps-graph" style="display:none"><canvas id="fps-canvas"></canvas></div>
   
 <script>
-  // ===== CHAOS SETUP (REQUIRED) =====
+  // ===== CHAOS SETUP =====
   window.CHAOS = {
     speed: 0.5 + Math.random() * 2,
     jump: 0.6 + Math.random() * 1.6,
@@ -27,23 +27,28 @@
 
   alert("CHAOS MODE ENABLED 😈");
 
-  // Grab elements
-  const lt = document.getElementById("loading-text");
-  const cv = document.getElementById("unity-canvas");
+  // Wait for Unity to define SendMessage
+  const waitForUnity = setInterval(() => {
+    if (typeof window.SendMessage === "function") {
+      clearInterval(waitForUnity);
 
-  // Intercept Unity messages
-  const oldSendMessage = window.SendMessage;
-  window.SendMessage = function(obj, method, value) {
-    if (typeof value === "number") {
-      const m = method.toLowerCase();
-      if (m.includes("speed")) value *= CHAOS.speed;
-      if (m.includes("jump")) value *= CHAOS.jump;
-      if (m.includes("gravity")) value *= CHAOS.gravity;
-      if (m.includes("damage")) value *= CHAOS.damage;
-      if (m.includes("health")) value *= CHAOS.hp;
+      const oldSendMessage = window.SendMessage;
+
+      window.SendMessage = function (obj, method, value) {
+        if (typeof value === "number") {
+          const m = method.toLowerCase();
+          if (m.includes("speed")) value *= CHAOS.speed;
+          if (m.includes("jump")) value *= CHAOS.jump;
+          if (m.includes("gravity")) value *= CHAOS.gravity;
+          if (m.includes("damage")) value *= CHAOS.damage;
+          if (m.includes("health")) value *= CHAOS.hp;
+        }
+        return oldSendMessage(obj, method, value);
+      };
+
+      console.log("CHAOS HOOKED INTO UNITY");
     }
-    return oldSendMessage ? oldSendMessage(obj, method, value) : null;
-  };
+  }, 100);
 </script>
 
 </body>
