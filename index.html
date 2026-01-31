@@ -16,10 +16,7 @@
 <div id="fps-graph" style="display:none"><canvas id="fps-canvas"></canvas></div>
   
 <script>
-  // ======================
-  // CHAOS MODE (FAKE RANDO)
-  // ======================
-
+  // ===== CHAOS SETUP (REQUIRED) =====
   window.CHAOS = {
     speed: 0.5 + Math.random() * 2,
     jump: 0.6 + Math.random() * 1.6,
@@ -28,15 +25,13 @@
     hp: 0.5 + Math.random() * 2
   };
 
-  console.log("CHAOS ROLL:", window.CHAOS);
-
   alert("CHAOS MODE ENABLED 😈");
 
   // Grab elements
   const lt = document.getElementById("loading-text");
   const cv = document.getElementById("unity-canvas");
 
-  // Intercept Unity messages (this is the magic) waht 
+  // Intercept Unity messages
   const oldSendMessage = window.SendMessage;
   window.SendMessage = function(obj, method, value) {
     if (typeof value === "number") {
