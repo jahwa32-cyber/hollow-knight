@@ -14,13 +14,21 @@
 <div id="unity-mobile-warning">WebGL not supported on mobile</div>
 <canvas id="unity-canvas"></canvas>
 <div id="fps-graph" style="display:none"><canvas id="fps-canvas"></canvas></div>
-  
+  <script>
+function waitForUnity() {
+  if (typeof window.SendMessage === "function") {
+    alert("Unity ready — mod loaded");
+    // MOD CODE WILL GO HERE LATER
+  } else {
+    setTimeout(waitForUnity, 500);
+  }
+}
+
+waitForUnity();
+</script>
 
 
 
 </body>
-  <script>
-alert("MOD LOADED");
-</script>
 </html>
 
