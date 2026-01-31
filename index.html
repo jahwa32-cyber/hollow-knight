@@ -36,7 +36,7 @@
   const lt = document.getElementById("loading-text");
   const cv = document.getElementById("unity-canvas");
 
-  // Intercept Unity messages (this is the magic)
+  // Intercept Unity messages (this is the magic) waht 
   const oldSendMessage = window.SendMessage;
   window.SendMessage = function(obj, method, value) {
     if (typeof value === "number") {
